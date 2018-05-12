@@ -1,26 +1,20 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"regexp"
-
-	"github.com/google/go-github/github"
+	"time"
 )
 
 var patterns = []*regexp.Regexp{
 	regexp.MustCompile("(?i)pl(?:ea)?s(?:e)?"),
 }
 
-func processPush(ev *github.PushEvent) bool {
-	if len(ev.Commits) > 0 {
-		for _, c := range ev.Commits {
-			for _, r := range patterns {
-				if r.MatchString(c.GetMessage()) {
-					fmt.Printf("LETS GO: %s\n", c.GetMessage())
-					return false
-				}
-			}
+func processPush(msg *string) bool {
+	for _, r := range patterns {
+		if r.MatchString(*msg) {
+			fmt.Printf("LETS GO: %s\n", *msg)
+			return false
 		}
 	}
 
@@ -28,36 +22,17 @@ func processPush(ev *github.PushEvent) bool {
 }
 
 func main() {
-	client := github.NewClient(nil)
-
-	opt := &github.ListOptions{PerPage: 30}
-search:
+	provider := newGithubProvider()
 	for {
-		events, resp, err := client.Activity.ListEvents(context.Background(), opt)
+		gen := provider.Provide()
 
-		if err != nil {
-			panic(err)
-		}
-
-		for _, raw := range events {
-			parsed, err := raw.ParsePayload()
-			if err != nil {
-				panic(err)
-			}
-
-			switch ev := parsed.(type) {
-			case *github.PushEvent:
-				if !processPush(ev) {
-					break search
-				}
+		for {
+			msg := gen()
+			if msg == nil || !processPush(msg) {
+				break
 			}
 		}
 
-		if resp.NextPage == 0 {
-			break
-		}
-		opt.Page = resp.NextPage
-
-		fmt.Printf("%d requests remaining in rate (resets at %s)\n", resp.Rate.Remaining, resp.Rate.Reset)
+		time.Sleep(2 * time.Second)
 	}
 }
