@@ -2,6 +2,30 @@
 
 
 [[projects]]
+  name = "github.com/cenkalti/backoff"
+  packages = ["."]
+  revision = "2ea60e5f094469f9e65adb9cd103795b73ae743e"
+  version = "v2.0.0"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/dghubble/go-twitter"
+  packages = ["twitter"]
+  revision = "c4115fa44a928413e0b857e0eb47376ffde3a61a"
+
+[[projects]]
+  name = "github.com/dghubble/oauth1"
+  packages = ["."]
+  revision = "70562a5920ad9b6ff03ef697c0f90ae569abbd2b"
+  version = "v0.4.0"
+
+[[projects]]
+  name = "github.com/dghubble/sling"
+  packages = ["."]
+  revision = "eb56e89ac5088bebb12eef3cb4b293300f43608b"
+  version = "v1.1.0"
+
+[[projects]]
   name = "github.com/golang/protobuf"
   packages = ["proto"]
   revision = "b4deda0973fb4c70b50d226b1af49f3da59f5265"
@@ -54,6 +78,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "add744832b94715a138faac0916c9d4e8a61425a20a6dfe588df0fa79f282c1d"
+  inputs-digest = "459bfec162f5c83b08536bf302f6ce18503e1f894649c291580cb415a58dee3a"
   solver-name = "gps-cdcl"
   solver-version = 1
