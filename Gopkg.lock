@@ -44,6 +44,12 @@
   revision = "53e6ce116135b80d037921a7fdd5138cf32d7a8a"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/gregjones/httpcache"
+  packages = ["."]
+  revision = "9cad4c3443a7200dd6400aef47183728de563a38"
+
+[[projects]]
   name = "github.com/sirupsen/logrus"
   packages = ["."]
   revision = "c155da19408a8799da419ed3eeb0cb5db0ad5dbc"
@@ -99,6 +105,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "5c65e1253faee77de60ad8a6417b2ae76c0abc075fd2b4f7b04c122e19486ceb"
+  inputs-digest = "b2e4ce2ad3f8b6324616f29ea60c8e5521d269c8c88e44824518aa9d991dbec3"
   solver-name = "gps-cdcl"
   solver-version = 1

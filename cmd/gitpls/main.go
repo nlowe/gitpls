@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"regexp"
 	"time"
 
@@ -13,10 +12,13 @@ var patterns = []*regexp.Regexp{
 	regexp.MustCompile("(?i)pl(?:ea)?s(?:e)?"),
 }
 
+var foundCount = 0
+
 func processPush(msg *string) bool {
 	for _, r := range patterns {
 		if r.MatchString(*msg) {
-			fmt.Printf("LETS GO: %s\n", *msg)
+			foundCount++
+			log.WithField("message", *msg).Warning("Found a matching commit")
 			return false
 		}
 	}
@@ -25,19 +27,31 @@ func processPush(msg *string) bool {
 }
 
 func main() {
+	log.SetLevel(log.DebugLevel)
 	log.Info("Hello, World!")
 
 	provider := gitpls.NewGithubProvider()
 	for {
-		gen := provider.Provide()
+		gen, delay := provider.Provide()
 
+		i := 0
 		for {
 			msg := gen()
-			if msg == nil || !processPush(msg) {
+			if msg == nil {
 				break
 			}
+
+			processPush(msg)
+
+			i++
 		}
 
-		time.Sleep(2 * time.Second)
+		log.WithFields(log.Fields{
+			"count": i,
+			"delay": delay,
+			"found": foundCount,
+		}).Infof("Processed Commits. Next tick in %d seconds", delay)
+
+		time.Sleep(time.Duration(delay) * time.Second)
 	}
 }
