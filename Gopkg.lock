@@ -44,6 +44,18 @@
   revision = "53e6ce116135b80d037921a7fdd5138cf32d7a8a"
 
 [[projects]]
+  name = "github.com/sirupsen/logrus"
+  packages = ["."]
+  revision = "c155da19408a8799da419ed3eeb0cb5db0ad5dbc"
+  version = "v1.0.5"
+
+[[projects]]
+  branch = "master"
+  name = "golang.org/x/crypto"
+  packages = ["ssh/terminal"]
+  revision = "ab813273cd59e1333f7ae7bff5d027d4aadf528c"
+
+[[projects]]
   branch = "master"
   name = "golang.org/x/net"
   packages = [
@@ -62,6 +74,15 @@
   revision = "cdc340f7c179dbbfa4afd43b7614e8fcadde4269"
 
 [[projects]]
+  branch = "master"
+  name = "golang.org/x/sys"
+  packages = [
+    "unix",
+    "windows"
+  ]
+  revision = "c11f84a56e43e20a78cee75a7c034031ecf57d1f"
+
+[[projects]]
   name = "google.golang.org/appengine"
   packages = [
     "internal",
@@ -78,6 +99,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "459bfec162f5c83b08536bf302f6ce18503e1f894649c291580cb415a58dee3a"
+  inputs-digest = "5c65e1253faee77de60ad8a6417b2ae76c0abc075fd2b4f7b04c122e19486ceb"
   solver-name = "gps-cdcl"
   solver-version = 1
