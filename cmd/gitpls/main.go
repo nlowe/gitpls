@@ -12,13 +12,17 @@ var patterns = []*regexp.Regexp{
 	regexp.MustCompile("(?i)pl(?:ea)?s(?:e)?"),
 }
 
+var truncator = &gitpls.MessageTruncator{MaxLength: 280}
 var foundCount = 0
 
 func processPush(msg *string) bool {
 	for _, r := range patterns {
 		if r.MatchString(*msg) {
 			foundCount++
-			log.WithField("message", *msg).Warning("Found a matching commit")
+			log.WithFields(log.Fields{
+				"message": *msg,
+				"truncatedMessage": truncator.Truncate(msg)
+			}).Warning("Found a matching commit")
 			return false
 		}
 	}
