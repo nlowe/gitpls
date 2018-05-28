@@ -1,3 +1,8 @@
+dist/
+
+cmd/**/*
+!cmd/**/
+!cmd/**/*.go
 
 # Created by https://www.gitignore.io/api/go
 

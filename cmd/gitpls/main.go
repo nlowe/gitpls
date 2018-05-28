@@ -20,8 +20,8 @@ func processPush(msg *string) bool {
 		if r.MatchString(*msg) {
 			foundCount++
 			log.WithFields(log.Fields{
-				"message": *msg,
-				"truncatedMessage": truncator.Truncate(msg)
+				"message":          *msg,
+				"truncatedMessage": truncator.Truncate(msg, r.FindString(*msg)),
 			}).Warning("Found a matching commit")
 			return false
 		}
