@@ -43,7 +43,7 @@ func (m *MessageTruncator) doTruncate(src string, keyword string) string {
 			var prefix string
 			prefix, left = left[len(left)-1], left[:len(left)-1]
 
-			if len(truncatedPrefix)+len(prefix)+len(wordSep)+len(result) > m.MaxLength {
+			if len(truncatedPrefix)+len(prefix)+len(wordSep)+len(result)+len(truncatedSuffix) > m.MaxLength {
 				break
 			}
 
@@ -52,7 +52,7 @@ func (m *MessageTruncator) doTruncate(src string, keyword string) string {
 			var suffix string
 			suffix, right = right[0], right[1:]
 
-			if len(result)+len(wordSep)+len(suffix)+len(truncatedSuffix) > m.MaxLength {
+			if len(truncatedPrefix)+len(result)+len(wordSep)+len(suffix)+len(truncatedSuffix) > m.MaxLength {
 				break
 			}
 
